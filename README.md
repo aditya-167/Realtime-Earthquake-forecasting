@@ -10,6 +10,7 @@ Web app link : [http://srichaditya3098.pythonanywhere.com/](http://srichaditya30
    * Project Overview
    * Problem Statement and approach to solution
    * Metrics 
+   * Dataset 
    * Exploratory Data Analysis and Data processing
    * Model implementation
    * Improvement and evaluation
@@ -28,4 +29,37 @@ Anticipating seismic tremors is a pivotal issue in Earth science because of thei
 
 ### Metrics
 
-The problem addressed above is about binary classification, `Earthquake occur = 1` and `Earthquake not occur = 0` and with these prediction we try to locate co-cordinates corrosponding to the predictions and display it on the google maps api web app. More suitable metrics for binary clsssification problems are **ROC (Reciever operator characteristics), AUC (Area Under Curve), Confusion matrix for Precision, recall, accuracy and sensitivity**. One important thing about choosing metrics and model is what exactly we need from predictions and what not. To be precise, we need to **minimize or get less False negative predictions** since we dont want our model to predict as `0` or `no earthquake occured` at particular location when in reality it had actually happend as this is because it is more dangerous than the prediction case in which prediction is `true/1` or `earthquake occured` but in reality it did not because its always **better safe than sorry!!!**. Hence apart from `roc_auc score`, I have considered `Recall` as well for evaluation and model selection with `higher auc_roc score and recall`, where `recall = (TP/TP+FN)`
+The problem addressed above is about binary classification, `Earthquake occur = 1` and `Earthquake not occur = 0` and with these prediction we try to locate co-cordinates corrosponding to the predictions and display it on the google maps api web app. More suitable metrics for binary clsssification problems are **ROC (Reciever operator characteristics), AUC (Area Under Curve), Confusion matrix for Precision, recall, accuracy and sensitivity**. One important thing about choosing metrics and model is what exactly we need from predictions and what not. To be precise, we need to **minimize or get less False negative predictions** since we dont want our model to predict as `0` or `no earthquake occured` at particular location when in reality it had actually happend as this is more dangerous than the prediction case in which prediction is `true/1` or `earthquake occured` but in reality it did not because its always **better safe than sorry!!!**. Hence apart from `roc_auc score`, I have considered
+`Recall` as well for evaluation and model selection with `higher auc_roc score and recall`, where `recall = (TP/TP+FN)`.
+
+### Dataset
+
+
+* time ---------------------- Time when the event occurred. Times are reported in milliseconds since the epoch 
+* latitude ------------------- Decimal degrees latitude. Negative values for southern latitudes.
+* longitude ------------------ Decimal degrees longitude. Negative values for western longitudes.
+* depth ---------------------- Depth of the event in kilometers.
+* mag ------------------------ Magnitude of event occured.
+* magType -------------------- The method or algorithm used to calculate the preferred magnitude
+* nst ------------------------ The total number of seismic stations used to determine earthquake location.
+* gap ------------------------ The largest azimuthal gap between azimuthally adjacent stations (in degrees).
+* dmin ----------------------- Horizontal distance from the epicenter to the nearest station (in degrees).
+* rms ------------------------ The root-mean-square (RMS) travel time residual, in sec, using all weights.
+* net ------------------------- The ID of a data source contributor for event occured.
+* id -------------------------- A unique identifier for the event. 
+* types ----------------------- A comma-separated list of product types associated to this event.
+* place ----------------------- named geographic region near to the event.
+* type ------------------------ Type of seismic event.
+* locationSource -------------- The network that originally authored the reported location of this event.
+* magSource ------------------- Network that originally authored the reported magnitude for this event.
+* horizontalError ------------- Uncertainty of reported location of the event in kilometers.
+* depthError ------------------ The depth error, three principal errors on a vertical line.
+* magError -------------------- Uncertainty of reported magnitude of the event.
+* magNst ---------------------- The total number of seismic stations to calculate the magnitude of earthquake.
+* status ---------------------- Indicates whether the event has been reviewed by a human.
+
+
+
+### Exploratory Data Analysis and Data preprocessing
+
+
