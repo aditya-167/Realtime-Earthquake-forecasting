@@ -1,6 +1,6 @@
 # Realtime Earthquake Predictor application 
 
-A realtime earthquake predictor web app with google maps API, that forecasts earthquake possible epicenters and places in window of next 7 days. This project is part of Udacity Nanodegree Data science capstone project. 
+A realtime earthquake predictor web app with google maps API, that forecasts earthquake possible epicenters and places in window of next 7 days.
 
 ![web-app](https://github.com/aditya-167/Realtime-Earthquake-forecasting/blob/master/Images/application.jpg)
 
@@ -34,6 +34,7 @@ The problem addressed above is about binary classification, `Earthquake occur = 
 
 ### Dataset
 
+Real time data that updates every minute on https://earthquake.usgs.gov/earthquakes/feed/v1.0/csv.php for past 30 days. Below is the feature description of the dataset with 22 features and 14150 samples at the time of training.
 
 * time ---------------------- Time when the event occurred. Times are reported in milliseconds since the epoch 
 * latitude ------------------- Decimal degrees latitude. Negative values for southern latitudes.
@@ -62,4 +63,25 @@ The problem addressed above is about binary classification, `Earthquake occur = 
 
 ### Exploratory Data Analysis and Data preprocessing
 
+This part is best explained in project walkthrough notebooks `Data/ETL_USGS_EarthQuake.ipybn` or `Data/ETL_USGS_EarthQuake.html`.
+Finally the cleaned data for prediction is stored in database file `Data/Earthquakedata.db` using sql engine.
 
+**Note** : only for project walkthrough purpose cleaned data is stored in database but for realtime analysis, in `Webapp/main.py` flask app, we extract data on the go without storing. This make sures we get realtime data any day when web app is requested by any user.
+
+### Model implementation
+
+As for the model selection, I have tried with Boosting algorithms for classification problem.
+
+1. Adaboost classifier with estimator as DecisionTreeClassifier
+
+2. Adaboosr classifier with estimator as RandomForestClassifier
+
+3. Finally I tried Xgboost algorithm.
+
+model selection was based on Evaluation on `roc_auc score` and `recall` and hyperparameter tunning.
+A better walkthrough is mentioned with great detail in `models/Earthquake-predictor-ML-workflow.ipybn` or `models/Earthquake-predictor-ML-workflow.html`.
+
+### Improvement and evaluation 
+
+* I have used gridsearch CV for improving model and hyperparameter tunning on Adaboost classifier with base estimators as `DecisionTreeClassifier` and `RandomForestClassifier`.
+* Using the same hyper parameters I trained XGBoost. As mentioned above, metrics for evaluation is `roc_auc score` and `recall`
