@@ -8,6 +8,7 @@ import numpy as np
 import xgboost as xgb
 from Webapp import app
 
+
 # global variables
 earthquake_live = None
 days_out_to_predict = 7
@@ -15,9 +16,8 @@ days_out_to_predict = 7
 
 #app = Flask(__name__)
 
-def prepare_earthquake_data_and_model(days_out_to_predict = 5, max_depth=3, eta=0.1):
-    import pandas as pd
-    import numpy as np
+def prepare_earthquake_data_and_model(days_out_to_predict = 7, max_depth=3, eta=0.1):
+
     # get latest data from USGS servers
     df = pd.read_csv('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.csv')
     df = df.sort_values('time', ascending=True)
@@ -43,13 +43,13 @@ def prepare_earthquake_data_and_model(days_out_to_predict = 5, max_depth=3, eta=
     df_live = []
     for symbol in list(set(df['place'])):
         temp_df = df[df['place'] == symbol].copy()
-        temp_df['depth_avg_20'] = temp_df['depth'].rolling(window=20,center=False).mean() 
-        temp_df['depth_avg_10'] = temp_df['depth'].rolling(window=10,center=False).mean()
-        temp_df['depth_avg_5'] = temp_df['depth'].rolling(window=5,center=False).mean()
-        temp_df['mag_avg_20'] = temp_df['mag'].rolling(window=20,center=False).mean() 
-        temp_df['mag_avg_10'] = temp_df['mag'].rolling(window=10,center=False).mean()
-        temp_df['mag_avg_5'] = temp_df['mag'].rolling(window=5,center=False).mean()
-        temp_df.loc[:, 'mag_outcome'] = temp_df.loc[:, 'mag_avg_5'].shift(days_out_to_predict * -1)
+        temp_df['depth_avg_22'] = temp_df['depth'].rolling(window=22,center=False).mean() 
+        temp_df['depth_avg_15'] = temp_df['depth'].rolling(window=15,center=False).mean()
+        temp_df['depth_avg_7'] = temp_df['depth'].rolling(window=7,center=False).mean()
+        temp_df['mag_avg_22'] = temp_df['mag'].rolling(window=22,center=False).mean() 
+        temp_df['mag_avg_15'] = temp_df['mag'].rolling(window=15,center=False).mean()
+        temp_df['mag_avg_7'] = temp_df['mag'].rolling(window=7,center=False).mean()
+        temp_df.loc[:, 'mag_outcome'] = temp_df.loc[:, 'mag_avg_7'].shift(days_out_to_predict * -1)
 
         df_live.append(temp_df.tail(days_out_to_predict))
 
@@ -59,8 +59,8 @@ def prepare_earthquake_data_and_model(days_out_to_predict = 5, max_depth=3, eta=
     df = pd.concat(eq_data)
 
     # remove any NaN fields
-    df = df[np.isfinite(df['depth_avg_20'])]
-    df = df[np.isfinite(df['mag_avg_20'])]
+    df = df[np.isfinite(df['depth_avg_22'])]
+    df = df[np.isfinite(df['mag_avg_22'])]
     df = df[np.isfinite(df['mag_outcome'])]
 
     # prepare outcome variable
@@ -69,17 +69,17 @@ def prepare_earthquake_data_and_model(days_out_to_predict = 5, max_depth=3, eta=
     df = df[['date',
              'latitude',
              'longitude',
-             'depth_avg_20',
-             'depth_avg_10',
-             'depth_avg_5',
-             'mag_avg_20', 
-             'mag_avg_10',
-             'mag_avg_5',
+             'depth_avg_22',
+             'depth_avg_15',
+             'depth_avg_7',
+             'mag_avg_22', 
+             'mag_avg_15',
+             'mag_avg_7',
              'mag_outcome']]
 
     # keep only data where we can make predictions
     df_live = pd.concat(df_live)
-    df_live = df_live[np.isfinite(df_live['mag_avg_20'])]
+    df_live = df_live[np.isfinite(df_live['mag_avg_22'])]
 
     # let's train the model whenever the webserver is restarted
     from sklearn.model_selection import train_test_split
@@ -100,7 +100,7 @@ def prepare_earthquake_data_and_model(days_out_to_predict = 5, max_depth=3, eta=
             'eta': eta,  # the training step for each iteration
             }  # logging mode - quiet}  # the number of classes that exist in this datset
 
-    num_round = 500  # the number of training iterations    
+    num_round = 1000  # the number of training iterations    
     early_stopping_rounds=30
     xgb_model = xgb.train(param, dtrain, num_round) 
 
@@ -167,7 +167,3 @@ def build_page():
                 current_value=0,
                 days_out_to_predict=days_out_to_predict)
 
-
-
-#if __name__=='__main__':
-#    app.run(debug=True)
