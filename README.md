@@ -84,4 +84,10 @@ A better walkthrough is mentioned with great detail in `models/Earthquake-predic
 ### Improvement and evaluation 
 
 * I have used gridsearch CV for improving model and hyperparameter tunning on Adaboost classifier with base estimators as `DecisionTreeClassifier` and `RandomForestClassifier`.
-* Using the same hyper parameters I trained XGBoost. As mentioned above, metrics for evaluation is `roc_auc score` and `recall`
+* Using the same hyper parameters I trained XGBoost. As mentioned above, metrics for evaluation is `roc_auc score` and `recall`.
+
+![DecisionTreeClassifier evaluation](https://github.com/aditya-167/Realtime-Earthquake-forecasting/blob/master/Images/DecisionTree.jpg)
+
+1. With **adaboost decision tree classifier** and hyper parameter tunning, we get area under curve (score) = 0.8867
+2. higher the auc score, better is the model since it is better at distinguishing postive and negative classes.
+3. Make a note here that we get from **confusion matrix**, `False negative = 42`and `Recall score =0.7789`. We need this value apart from auc score that we will analyze later when we have tested with diffferent models below
