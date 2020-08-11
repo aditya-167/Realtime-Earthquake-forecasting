@@ -119,6 +119,7 @@ We can see above that xgboost algorithm has higher auc score (0.9819) than adabo
 * with taking only 7 days rolling period data from predict dataframe since this outcome value is NaN and we need to predict next 7 days period.
 
 **Prediction for a particular day**
+
 ![prediction](https://github.com/aditya-167/Realtime-Earthquake-forecasting/blob/master/Images/XGboost.jpg)
 
 **Web App**
@@ -176,17 +177,26 @@ Hence with all the mentioned implementation, the web application was successfull
 Note for **windows user** : install gitbash and proceed with same instruction as linux.
 
 `step 1` : `$ git clone https://github.com/aditya-167/Realtime-Earthquake-forecasting.git`
+
 `step 2` : `$ cd Realtime-Earthquake-forecasting`
-`step 3` : `$ python3 -m venv <<any environment name>>` (If error occurs, download virtual environment for python)
+
+`step 3` : `$ python3 -m venv <<any environment name>>` (If error occurs, download virtual 
+environment for python)
+
 `step 4` : `$ pip install --upgrade python`
+
 `step 5` : `$ source <<any environment name>>/bin/activate`
-`step 6` : `$ pip install -r requirements.txt` (If error occurs in xgboost installation, upgrade pip using step 4)
+
+`step 6` : `$ pip install -r requirements.txt` (If error occurs in xgboost installation, upgrade pip 
+using step 4)
+
 `step 7` : Run application with `$ python application.py` i.e in root directory of project repo.
+
 `step 8` : Go to local host when application starts and use slider to choose dates for prediction in app.
 
-### Acknowledgmet
+### Acknowledgement
 
-I would like to thank Udacity Datascience Nanodegree and mentors to work on this capstone project along with `https://earthquake.usgs.gov/earthquakes/feed/v1.0/csv.php` for providing the real time dataset
+I would like to thank Udacity Datascience Nanodegree and mentors to work on this capstone project along with [USGS](https://earthquake.usgs.gov/earthquakes/feed/v1.0/csv.php) for providing the real time dataset.
 
 
 
