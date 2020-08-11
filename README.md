@@ -120,7 +120,7 @@ We can see above that xgboost algorithm has higher auc score (0.9819) than adabo
 
 **Prediction for a particular day**
 
-![prediction](https://github.com/aditya-167/Realtime-Earthquake-forecasting/blob/master/Images/XGboost.jpg)
+![prediction](https://github.com/aditya-167/Realtime-Earthquake-forecasting/blob/master/Images/predict.jpg)
 
 **Web App**
 
@@ -183,12 +183,12 @@ Note for **windows user** : install gitbash and proceed with same instruction as
 `step 3` : `$ python3 -m venv <<any environment name>>` (If error occurs, download virtual 
 environment for python)
 
-`step 4` : `$ pip install --upgrade python`
+`step 4` : `$ source <<any environment name>>/bin/activate`
 
-`step 5` : `$ source <<any environment name>>/bin/activate`
+`step 5` : `$ pip install --upgrade python `
 
 `step 6` : `$ pip install -r requirements.txt` (If error occurs in xgboost installation, upgrade pip 
-using step 4)
+using step 5)
 
 `step 7` : Run application with `$ python application.py` i.e in root directory of project repo.
 
