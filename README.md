@@ -185,7 +185,7 @@ environment for python)
 
 `step 4` : `$ source <<any environment name>>/bin/activate`
 
-`step 5` : `$ pip install --upgrade python `
+`step 5` : `$ pip install --upgrade pip `
 
 `step 6` : `$ pip install -r requirements.txt` (If error occurs in xgboost installation, upgrade pip 
 using step 5)
