@@ -16,7 +16,6 @@ Web app link : [http://srichaditya3098.pythonanywhere.com/](http://srichaditya30
    * Improvement and evaluation
    * Prediction and web application
    * Improvement and conclusion
-   * Deployment web app
    * Instructions to run the project
    * acknowledgement
 
@@ -111,3 +110,84 @@ A better walkthrough is mentioned with great detail in `models/Earthquake-predic
 2. As we can see this significantly gives higher AUC score of almost 0.0.98 and also `False negative = 37` which is similar Random Forest adaboost but xgboost has higher True positive and less False Positve compared to Random forest adaboost. i.e `Recall score = 0.805` which is similar adaboost Random Forrest tree. But XGboost is really good at classifying positive and negative classes and also better `aur_roc_score = 0.98193`.
 
 We can see above that xgboost algorithm has higher auc score (0.9819) than adaboost decision tree and random forest, as it is evident from the ROC curve. Hence we consider xgboost for prediction of live data and deployment in the application.
+
+-> For more insights go : `models/Earthquake-predictor-ML-workflow.ipybn` or `models/Earthquake-predictor-ML-workflow.html`.
+
+### Prediction and Web-application
+
+* Select specific features such as `data`,`place`,`long`,`lat` and give earthquake probablity from prediction at that place and date as `quake` probability
+* with taking only 7 days rolling period data from predict dataframe since this outcome value is NaN and we need to predict next 7 days period.
+
+**Prediction for a particular day**
+![prediction](https://github.com/aditya-167/Realtime-Earthquake-forecasting/blob/master/Images/XGboost.jpg)
+
+**Web App**
+
+1. Now its time to deploy the model on web application with flask and I have chosen it to deploy on https://www.pythonanywhere.com/ which is a free hosting cloud platform for web flask applications.
+
+2. Main Idea of Application will be predicting or forecasting these earthquake sites on given day all over the world.
+
+3. The user has option to change the date using a slider and look at predicted places all over the world where earthquake is likely to happen. [App](http://srichaditya3098.pythonanywhere.com/).
+
+4. Application uses google maps [api](https://developers.google.com/maps/documentation), hence the coordinates we get from the prediction of our model needs to be converted to api format. This has been done and can be viewed `Webapp/main.py`
+
+
+### Improvement and conclusion
+
+Though XGboost model has given Higher `roc_auc` and better `recall`, I believe any work given always has some scope for improvement and in here we could also use `RNN or LSTM` for time series or `rather event series forecasting`. LSTMs have hidden memory cells that help in remembering and handeling time series or event series data well. Moreover for xgboost I have just used hyper parameters from already tuned Adaboost models, but we can also tune xgboost hyper parameter and find best parameters using GridSearchCV or RandomSearch.
+
+**Some final thoughts** 
+
+1. So far the model looks good with xgboost as chosen model for predictions in web app haveing higher auc score and higher recall_score as I have explained under XGBoost result section why auc and recall score are chosen.
+
+2. Our main Aim is to predict wether earthquake will happen or not at a given day and place. So we definitely would **not like the model with higher False Neagtive values , since its more dangerous to predict as no earthquake while in reality earthquake happend than predicting earthquake will happen given in reality it did not**. We can allow False positive more than False negative
+
+3. After seeing these comparision on auc_roc score, confusion matrix, and recall score, since all the above algorithm have given similar result with slightly different recall scores, Xgboost with `FN=37` but with higher `auc_score 0f 0.98` performs over-all better. Hence for webapplication deployment, I have chosen Xgboost as it also faster than adaboost.
+
+Hence with all the mentioned implementation, the web application was successfully deployed and necessary project walktrhough can be accessed from `Data and models` directory.
+
+### Instructions to run project
+
+**Requirements**
+ 
+1. click==7.1.2
+2. Flask==1.1.2
+3. gunicorn==20.0.4
+4. itsdangerous==1.1.0
+5. Jinja2==2.11.2
+6. joblib==0.16.0
+7. MarkupSafe==1.1.1
+8. numpy==1.19.1
+9. pandas==1.1.0
+10. python-dateutil==2.8.1
+11. pytz==2020.1
+12. scikit-learn==0.23.1
+13. scipy==1.5.2
+14. six==1.15.0
+15. sklearn==0.0
+16. SQLAlchemy==1.3.18
+17. threadpoolctl==2.1.0
+18. Werkzeug==1.0.1
+19. xgboost==1.1.1
+20. python3.x
+
+**Linux/Mac Users**
+
+Note for **windows user** : install gitbash and proceed with same instruction as linux.
+
+`step 1` : `$ git clone https://github.com/aditya-167/Realtime-Earthquake-forecasting.git`
+`step 2` : `$ cd Realtime-Earthquake-forecasting`
+`step 3` : `$ python3 -m venv <<any environment name>>` (If error occurs, download virtual environment for python)
+`step 4` : `$ pip install --upgrade python`
+`step 5` : `$ source <<any environment name>>/bin/activate`
+`step 6` : `$ pip install -r requirements.txt` (If error occurs in xgboost installation, upgrade pip using step 4)
+`step 7` : Run application with `$ python application.py` i.e in root directory of project repo.
+`step 8` : Go to local host when application starts and use slider to choose dates for prediction in app.
+
+### Acknowledgmet
+
+I would like to thank Udacity Datascience Nanodegree and mentors to work on this capstone project along with `https://earthquake.usgs.gov/earthquakes/feed/v1.0/csv.php` for providing the real time dataset
+
+
+
+
