@@ -5,6 +5,72 @@ A realtime earthquake predictor web app with google maps API, that forecasts ear
 ![web-app](https://github.com/aditya-167/Realtime-Earthquake-forecasting/blob/master/Images/application.jpg)
 
 Web app link : [http://srichaditya3098.pythonanywhere.com/](http://srichaditya3098.pythonanywhere.com/)
+
+### Code files
+
+* `Data/` : Notebook and HTML file `ETL_USGS_EarthQuake.ipybn` for ETL and EDA part of the project, and it also contains cleaned data in Earthquake.db & Earthquake_data.db format saved after ETL process
+
+* `models/` : Notebook and HTML file `Earthquake-prediction-ML-workflow.ipybn` which has all the implementation after related to Prediction steps and Machine Learning pipeline.
+
+* `Webapp/` : all the necessary routing python files in `main.py` for flask application.
+
+I have implemented all the neccesary steps in these IPYBN notebooks. I recommend for project walkthrough follow -
+
+  1. For ETL walkthrough open `Data/ETL_USGS_EarthQuake.ipybn`
+
+  2. Next, go to `models/Earthquake-prediction-ML-workflow.ipybn` for ML and workflow. 
+
+
+### Instructions to run the project
+
+
+**Requirements**
+ 
+1. click==7.1.2
+2. Flask==1.1.2
+3. gunicorn==20.0.4
+4. itsdangerous==1.1.0
+5. Jinja2==2.11.2
+6. joblib==0.16.0
+7. MarkupSafe==1.1.1
+8. numpy==1.19.1
+9. pandas==1.1.0
+10. python-dateutil==2.8.1
+11. pytz==2020.1
+12. scikit-learn==0.23.1
+13. scipy==1.5.2
+14. six==1.15.0
+15. sklearn==0.0
+16. SQLAlchemy==1.3.18
+17. threadpoolctl==2.1.0
+18. Werkzeug==1.0.1
+19. xgboost==1.1.1
+20. python3.x
+
+
+**Linux/Mac Users**
+
+Note for **windows user** : install gitbash and proceed with same instruction as linux.
+
+`step 1` : `$ git clone https://github.com/aditya-167/Realtime-Earthquake-forecasting.git`
+
+`step 2` : `$ cd Realtime-Earthquake-forecasting`
+
+`step 3` : `$ python3 -m venv <<any environment name>>` (If error occurs, download virtual 
+environment for python)
+
+`step 4` : `$ source <<any environment name>>/bin/activate`
+
+`step 5` : `$ pip install --upgrade pip `
+
+`step 6` : `$ pip install -r requirements.txt` (If error occurs in xgboost installation, upgrade pip 
+using step 5)
+
+`step 7` : Run application with `$ python application.py` i.e in root directory of project repo.
+
+`step 8` : Go to local host when application starts and use slider to choose dates for prediction in app.
+
+
 ## Contents
 
    * Project Overview
@@ -16,7 +82,6 @@ Web app link : [http://srichaditya3098.pythonanywhere.com/](http://srichaditya30
    * Improvement and evaluation
    * Prediction and web application
    * Improvement and conclusion
-   * Instructions to run the project
    * acknowledgement
 
 ### Project Overview
@@ -147,52 +212,6 @@ Though XGboost model has given Higher `roc_auc` and better `recall`, I believe a
 
 Hence with all the mentioned implementation, the web application was successfully deployed and necessary project walktrhough can be accessed from `Data and models` directory.
 
-### Instructions to run project
-
-**Requirements**
- 
-1. click==7.1.2
-2. Flask==1.1.2
-3. gunicorn==20.0.4
-4. itsdangerous==1.1.0
-5. Jinja2==2.11.2
-6. joblib==0.16.0
-7. MarkupSafe==1.1.1
-8. numpy==1.19.1
-9. pandas==1.1.0
-10. python-dateutil==2.8.1
-11. pytz==2020.1
-12. scikit-learn==0.23.1
-13. scipy==1.5.2
-14. six==1.15.0
-15. sklearn==0.0
-16. SQLAlchemy==1.3.18
-17. threadpoolctl==2.1.0
-18. Werkzeug==1.0.1
-19. xgboost==1.1.1
-20. python3.x
-
-**Linux/Mac Users**
-
-Note for **windows user** : install gitbash and proceed with same instruction as linux.
-
-`step 1` : `$ git clone https://github.com/aditya-167/Realtime-Earthquake-forecasting.git`
-
-`step 2` : `$ cd Realtime-Earthquake-forecasting`
-
-`step 3` : `$ python3 -m venv <<any environment name>>` (If error occurs, download virtual 
-environment for python)
-
-`step 4` : `$ source <<any environment name>>/bin/activate`
-
-`step 5` : `$ pip install --upgrade pip `
-
-`step 6` : `$ pip install -r requirements.txt` (If error occurs in xgboost installation, upgrade pip 
-using step 5)
-
-`step 7` : Run application with `$ python application.py` i.e in root directory of project repo.
-
-`step 8` : Go to local host when application starts and use slider to choose dates for prediction in app.
 
 ### Acknowledgement
 
