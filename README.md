@@ -12,13 +12,13 @@ Web app link : [http://srichaditya3098.pythonanywhere.com/](http://srichaditya30
 
 * `models/` : Notebook and HTML file `Earthquake-prediction-ML-workflow.ipybn` which has all the implementation after related to Prediction steps and Machine Learning pipeline.
 
-* `Webapp/` : all the necessary routing python files in `main.py` for flask application.
+* `Webapp/` : all the necessary routing python files in `main.py` for flask application i.e for data extraction to medling application and convert prediction co-ordinates to google maps api format.
 
 I have implemented all the neccesary steps in these IPYBN notebooks. I recommend for project walkthrough follow -
 
-  1. For ETL walkthrough open `Data/ETL_USGS_EarthQuake.ipybn`
+  1. For ETL walkthrough open `Data/ETL_USGS_EarthQuake.ipybn` or `Data/ETL_USGS_EarthQuake.html`
 
-  2. Next, go to `models/Earthquake-prediction-ML-workflow.ipybn` for ML and workflow. 
+  2. Next, go to `models/Earthquake-prediction-ML-workflow.ipybn` or `models/Earthquake-prediction-ML-workflow.html` for ML and workflow. 
 
 
 ### Instructions to run the project
