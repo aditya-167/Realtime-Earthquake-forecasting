@@ -131,7 +131,7 @@ Data Info:-
 
 **Null values**
 Input to model from dataset has many important features to consider as `time`,`latitude & longitude`,`depth of quake`,`magnitude`,`place`, rest other features are error and non supporting features for classification, below shows the null value counts for some features and what to do with that.
-<img src="Images/info.png" width="900" height="500" />
+<img src="Images/info.png" width="600" height="300" />
 
 * We can see lots of null values of certain features, but as part of prediction most of the features that address 'error' in measurement have missing values, thus for feature selection we consider only certain features in final dataframe, hence I choose simply **drop or ignore the null values**.
 
@@ -140,21 +140,28 @@ Input to model from dataset has many important features to consider as `time`,`l
    * Set rolling window size for future prediction based on past values with fixed window size in past
    * I have created 6 new features based on rolling window size on average depth and average  magnitude.
    * A final outcome 'mag_outcome' has been defined as target values and the output is considered as shifted values from set rolling window of past days eg: '7'. 
+**New features include** : avg_depth, magnitude_avg for 22,15,7 days rolling window period for training.
 
-<img src="Images/featureengineer.png" width="900" height="500" />
+<img src="Images/featureengineer.png" width="900" height="300" />
 
 * After feature engineering and dealing with null values, the model has imbalance class distribution
 
-<img src="Images/class_distrib.png" width="900" height="500" />
+<img src="Images/class_distrib.png" width="900" height="300" />
 
-Accuracy is not the metric to use when working with an imbalanced dataset. We have seen that it is misleading.There are metrics that have been designed to tell you a more truthful story when working with imbalanced classes. such as collect more data, change metrics, resampling data, cross-validation dataset etc.
+* Accuracy is not the metric to use when working with an imbalanced dataset. We have seen that it is misleading.There are metrics that have been designed to tell you a more truthful story when working with imbalanced classes. such as collect more data, change metrics, resampling data, cross-validation dataset etc.
 For the project I have considered the metrics for treating this imbalance nature with-
 1. Confusion Matrix: A breakdown of predictions into a table showing correct predictions (the diagonal) and the types of incorrect predictions made (what classes incorrect predictions were assigned).
 2. Recall: A measure of a classifiers completeness
 3. ROC Curves: Like precision and recall, accuracy is divided into sensitivity and specificity and models can be chosen based on the balance thresholds of these values.
 
-Moreover the reason for choosing this metrics not only helps me improve class imbalance comfirmation bias but also due to my nature of problem to be solved of earthquake prediction False negative must be penalized more.
-New features include : avg_depth, magnitude_avg for 22,15,7 days rolling window period for training.
+* Moreover the reason for choosing this metrics not only helps me improve class imbalance comfirmation bias but also due to my nature of problem to be solved of earthquake prediction False negative must be penalized more.
+
+**Lets analyse places with top 20 higher nad lower number of magnitude mean**
+
+<img src="Images/lowest.png" width="900" height="300" />
+
+
+ 
 This part is best explained in project walkthrough notebooks `Data/ETL_USGS_EarthQuake.ipybn` or `Data/ETL_USGS_EarthQuake.html`.
 Finally the cleaned data for prediction is stored in database file `Data/Earthquakedata.db` using sql engine.
 
