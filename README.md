@@ -159,10 +159,10 @@ For the project I have considered the metrics for treating this imbalance nature
 **Lets analyse places with top 20 higher & lower number of magnitude mean**
 
 Top 20 places where lowest magnitude mean quake experienced in past 30 days. 
-<img src="Images/lowest.png" width="900" height="300" />
+<img src="Images/lowest.png" width="900" height="400" />
 
 Top 20 places where highes magnitude mean quake experienced in past 30 days. 
-<img src="Images/highest.png" width="900" height="300" />
+<img src="Images/highest.png" width="900" height="400" />
 
 * Finally for `mag_outcome` feature we created based on 7 days rolling window period in future as target, I have converted it to class as 1 or 0 based on magnitude outcome > 2.5
 
@@ -171,9 +171,9 @@ Finally the cleaned data for prediction is stored in database file `Data/Earthqu
 
 **Note** : only for project walkthrough purpose cleaned data is stored in database but for realtime analysis, in `Webapp/main.py` flask app, we extract data on the go without storing. This make sures we get realtime data any day when web app is requested by any user.
 
-### Model implementation
+### Model implementation and methodology
 
-As for the model selection, I have tried with Boosting algorithms for classification problem.
+After preprocessing with removing null values, and feature engineering as discussed above, I performed Boosting algorithms for classification problem.
 
 1. Adaboost classifier with estimator as DecisionTreeClassifier
 
@@ -181,8 +181,27 @@ As for the model selection, I have tried with Boosting algorithms for classifica
 
 3. Finally I tried Xgboost algorithm.
 
+For all the above algorithms, 
+
+* DecisionTreeClassifier
+
+max_depth =[2,6,7], n_estimators = [200,500,700] and used gridsearch CV for best estimator as nodes are expanded until all leaves are pure or until all leaves contain less than min_samples_split = 2 samples which helps for classification with various types of features in dataset.
+
+* RandomForestCLassifer
+
+Same parameters were used for randomforest as well to compare the algorithms used with gridsearchCV along with another hyperparamter `max_features`= ['auto','sqrt','log2'] that will let select features based on log(featues), sqrt(features) etc.
+
+* XgboostClassifier
+
+I did not use grid Search CV here since, it took me more very long to train, hence I tried max_depth same as above algorithms with best fit, i.e 6, `learning_rate=0.03` and `gbtree` as booster
+
 model selection was based on Evaluation on `roc_auc score` and `recall` and hyperparameter tunning.
 A better walkthrough is mentioned with great detail in `models/Earthquake-predictor-ML-workflow.ipybn` or `models/Earthquake-predictor-ML-workflow.html`.
+
+
+`max_depth` hyperparameter along with `n_estimator` was important as this indicates how deep the tree can be. The deeper the tree, the more splits it has and it captures more information about the data due eqarthquake data being only for past 30 days and features such as rolling window time period of magnitude.
+
+`max_features` hyperparameter is used since it ensures how many features to take in account for classification. Due to features such as maginutude and depth of quake for 22,15,and 7 days, this hyperparameter takes care of how many to pay attention to. GridSearchCV will take care of what features to take depending on `sqrt(num_features)`,`log(num_features)`,`auto(num_features)`.
 
 ### Improvement and evaluation 
 
@@ -197,6 +216,9 @@ A better walkthrough is mentioned with great detail in `models/Earthquake-predic
 2. higher the auc score, better is the model since it is better at distinguishing postive and negative classes.
 3. Make a note here that we get from **confusion matrix**, `False negative = 42`and `Recall score =0.7789`. We need this value apart from auc score that we will analyze later when we have tested with diffferent models below
 
+I got Best estimator with `max_depth = 6` and for `n_estimators = 500` after running gridSearchcv.
+
+model selection is based on metrics score after comaparing all the algorithm score
 
 **RandomForesClassifier adaboost**
 
@@ -205,12 +227,15 @@ A better walkthrough is mentioned with great detail in `models/Earthquake-predic
 1. Below is the auc score for **adaboost RandomForest classifier** with 0.916 which is slightly lower than Decision tree classifier
 2. Moreover when we look at **confusion matrix**, `False Negative=38` and `Recall score = 0.8' can be observed which is slightly higher than recall score of decision tree. Thus performs better than decision tree adabooost 
 
+Random forest gets best estimator with `max_depth = 7` and `max_feature = sqrt(features)` 
 
+model selection is based on metrics score after comaparing all the algorithm score
 **XGBoost model**
 
 ![XGBoost](https://github.com/aditya-167/Realtime-Earthquake-forecasting/blob/master/Images/XGboost.jpg)
 
 1. I have also tested with xgboost model below with similar parameters as I got above, since grid search CV was taking lot of time for xgboost.
+
 2. As we can see this significantly gives higher AUC score of almost 0.0.98 and also `False negative = 37` which is similar Random Forest adaboost but xgboost has higher True positive and less False Positve compared to Random forest adaboost. i.e `Recall score = 0.805` which is similar adaboost Random Forrest tree. But XGboost is really good at classifying positive and negative classes and also better `aur_roc_score = 0.98193`.
 
 We can see above that xgboost algorithm has higher auc score (0.9819) than adaboost decision tree and random forest, as it is evident from the ROC curve. Hence we consider xgboost for prediction of live data and deployment in the application.
