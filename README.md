@@ -156,13 +156,17 @@ For the project I have considered the metrics for treating this imbalance nature
 
 * Moreover the reason for choosing this metrics not only helps me improve class imbalance comfirmation bias but also due to my nature of problem to be solved of earthquake prediction False negative must be penalized more.
 
-**Lets analyse places with top 20 higher nad lower number of magnitude mean**
+**Lets analyse places with top 20 higher & lower number of magnitude mean**
 
+Top 20 places where lowest magnitude mean quake experienced in past 30 days. 
 <img src="Images/lowest.png" width="900" height="300" />
 
+Top 20 places where highes magnitude mean quake experienced in past 30 days. 
+<img src="Images/highest.png" width="900" height="300" />
 
- 
-This part is best explained in project walkthrough notebooks `Data/ETL_USGS_EarthQuake.ipybn` or `Data/ETL_USGS_EarthQuake.html`.
+* Finally for `mag_outcome` feature we created based on 7 days rolling window period in future as target, I have converted it to class as 1 or 0 based on magnitude outcome > 2.5
+
+Rest of the part is best explained in project walkthrough notebooks `Data/ETL_USGS_EarthQuake.ipybn` or `Data/ETL_USGS_EarthQuake.html`.
 Finally the cleaned data for prediction is stored in database file `Data/Earthquakedata.db` using sql engine.
 
 **Note** : only for project walkthrough purpose cleaned data is stored in database but for realtime analysis, in `Webapp/main.py` flask app, we extract data on the go without storing. This make sures we get realtime data any day when web app is requested by any user.
