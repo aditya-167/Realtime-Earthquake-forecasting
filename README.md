@@ -281,10 +281,3 @@ Though XGboost model has given Higher `roc_auc` and better `recall`, I believe a
 Hence with all the mentioned implementation, the web application was successfully deployed and necessary project walktrhough can be accessed from `Data and models` directory.
 
 
-### Acknowledgement
-
-I would like to thank Udacity Datascience Nanodegree and mentors to work on this capstone project along with [USGS](https://earthquake.usgs.gov/earthquakes/feed/v1.0/csv.php) for providing the real time dataset.
-
-
-
-
